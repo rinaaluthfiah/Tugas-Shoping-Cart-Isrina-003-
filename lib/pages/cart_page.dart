@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/cart_model.dart';
+import 'checkout_page.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -48,84 +49,68 @@ class CartPage extends StatelessWidget {
 
       body: Consumer<CartModel>(
         builder: (context, cart, child) {
-
-          if (cart.isEmpty) {
+        if (cart.isEmpty) {
             return const Center(
-              child: Text(
-                'Your cart is empty',
-                style: TextStyle(fontSize: 18),
-              ),
+              child: Text('Your cart is empty', style: TextStyle(fontSize: 18)),
             );
-          }
-
+        }
           return Column(
             children: [
-
-              // LIST ITEM
               Expanded(
                 child: ListView.builder(
                   itemCount: cart.items.length,
                   itemBuilder: (context, index) {
-
-                    final item = cart.items[index];
+                  final item = cart.items[index];
                     final product = item.product;
 
                     return Card(
                       margin: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       child: ListTile(
                         leading: Text(
                           product.emoji,
                           style: const TextStyle(fontSize: 28),
                         ),
-                        title: Text(
-                          product.name,
-                          style: const TextStyle(fontSize: 14),
-                        ),
+                        title: Text(product.name),
                         subtitle: Text(
-                          'Rp ${product.price.toStringAsFixed(0)}',
-                          style: const TextStyle(fontSize: 12),
+                        'Rp ${product.price.toStringAsFixed(0)}',
                         ),
                         trailing: SizedBox(
                           width: 160,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-
-                              // MINUS
+                            
                               IconButton(
                                 icon: const Icon(Icons.remove, size: 18),
                                 onPressed: () =>
                                     cart.decreaseQuantity(product.id),
                               ),
 
-                              Text(
-                                '${item.quantity}',
-                                style: const TextStyle(fontSize: 13),
-                              ),
+                              Text('${item.quantity}'),
 
-                              // PLUS
+                            
                               IconButton(
                                 icon: const Icon(Icons.add, size: 18),
                                 onPressed: () =>
                                     cart.increaseQuantity(product.id),
                               ),
 
-                              // REMOVE BUTTON KHUSUS
+                              
                               IconButton(
                                 icon: const Icon(
                                   Icons.delete,
                                   size: 18,
-                                  color: Color.fromARGB(255, 173, 106, 166),
+                                  color: Colors.red,
                                 ),
                                 onPressed: () {
                                   cart.removeItem(product.id);
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content:
-                                          Text('${product.name} removed'),
-                                      duration:
-                                          const Duration(seconds: 1),
+                                      content: Text('${product.name} removed'),
+                                      duration: const Duration(seconds: 1),
                                     ),
                                   );
                                 },
@@ -139,17 +124,17 @@ class CartPage extends StatelessWidget {
                 ),
               ),
 
-              // TOTAL BAR
+              
               Container(
                 padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 130, 135, 233),
-                  boxShadow: const [
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 130, 135, 233),
+                  boxShadow: [
                     BoxShadow(
                       blurRadius: 5,
                       offset: Offset(0, -2),
                       color: Colors.black12,
-                    )
+                    ),
                   ],
                 ),
                 child: Row(
@@ -162,35 +147,14 @@ class CartPage extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
+
+                    
                     ElevatedButton(
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (ctx) => AlertDialog(
-                            title: const Text('Checkout'),
-                            content: Text(
-                              'Items: ${cart.totalQuantity}\nTotal: Rp ${cart.totalPrice.toStringAsFixed(0)}',
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(ctx),
-                                child: const Text('Cancel'),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  cart.clear();
-                                  Navigator.pop(ctx);
-                                  Navigator.pop(context);
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Order placed!'),
-                                    ),
-                                  );
-                                },
-                                child: const Text('Confirm'),
-                              ),
-                            ],
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CheckoutPage(),
                           ),
                         );
                       },
