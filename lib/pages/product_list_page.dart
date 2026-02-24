@@ -31,7 +31,7 @@ class _ProductListPageState extends State<ProductListPage> {
       price: 8000000,
       emoji: '📱',
       description: 'Smartphone flagship terbaru',
-      category: 'Electronics', 
+      category: 'Electronics',
     ),
     Product(
       id: '3',
@@ -58,11 +58,27 @@ class _ProductListPageState extends State<ProductListPage> {
       category: 'Electronics',
     ),
     Product(
+      id: '5',
+      name: 'Gaming Mouse',
+      price: 450000,
+      emoji: '🖱️',
+      description: 'Mouse gaming RGB presisi tinggi',
+      category: 'Accessories',
+    ),
+    Product(
       id: '6',
-      name: 'Tablet Pro',
-      price: 7000000,
-      emoji: '📟',
-      description: 'Tablet untuk produktivitas',
+      name: 'Mechanical Keyboard',
+      price: 1200000,
+      emoji: '⌨️',
+      description: 'Keyboard mechanical blue switch',
+      category: 'Accessories',
+    ),
+    Product(
+      id: '7',
+      name: 'External SSD 1TB',
+      price: 1800000,
+      emoji: '💾',
+      description: 'SSD external kecepatan tinggi',
       category: 'Electronics',
     ),
   ];
@@ -70,8 +86,9 @@ class _ProductListPageState extends State<ProductListPage> {
   @override
   Widget build(BuildContext context) {
     final filteredProducts = products.where((product) {
-      final matchesSearch =
-          product.name.toLowerCase().contains(searchQuery.toLowerCase());
+      final matchesSearch = product.name.toLowerCase().contains(
+        searchQuery.toLowerCase(),
+      );
 
       final matchesCategory =
           selectedCategory == 'All' || product.category == selectedCategory;
@@ -92,9 +109,7 @@ class _ProductListPageState extends State<ProductListPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (_) => const CartPage(),
-                        ),
+                        MaterialPageRoute(builder: (_) => const CartPage()),
                       );
                     },
                   ),
@@ -133,7 +148,6 @@ class _ProductListPageState extends State<ProductListPage> {
 
       body: Column(
         children: [
-          // 🔍 SEARCH BAR
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
@@ -161,9 +175,13 @@ class _ProductListPageState extends State<ProductListPage> {
               items: const [
                 DropdownMenuItem(value: 'All', child: Text('All')),
                 DropdownMenuItem(
-                    value: 'Electronics', child: Text('Electronics')),
+                  value: 'Electronics',
+                  child: Text('Electronics'),
+                ),
                 DropdownMenuItem(
-                    value: 'Accessories', child: Text('Accessories')),
+                  value: 'Accessories',
+                  child: Text('Accessories'),
+                ),
               ],
               onChanged: (value) {
                 setState(() {
@@ -174,13 +192,10 @@ class _ProductListPageState extends State<ProductListPage> {
           ),
 
           const SizedBox(height: 10),
-
-          // 🛍 PRODUCT GRID
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.all(16),
-              gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 0.72,
                 crossAxisSpacing: 16,
@@ -196,7 +211,7 @@ class _ProductListPageState extends State<ProductListPage> {
                     children: [
                       Expanded(
                         child: Container(
-                          color: Colors.deepPurple.shade50,
+                          color: const Color.fromARGB(255, 137, 161, 207),
                           child: Center(
                             child: Text(
                               product.emoji,
@@ -221,9 +236,9 @@ class _ProductListPageState extends State<ProductListPage> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'Rp ${product.price}', // ✅ FIX tanpa toStringAsFixed
+                              'Rp ${product.price}',
                               style: TextStyle(
-                                color: Colors.green[700],
+                                color: const Color.fromARGB(255, 87, 195, 133),
                                 fontWeight: FontWeight.w600,
                                 fontSize: 13,
                               ),
@@ -235,15 +250,13 @@ class _ProductListPageState extends State<ProductListPage> {
                                 onPressed: () {
                                   context.read<CartModel>().addItem(product);
 
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                          '${product.name} ditambahkan ke cart!'),
-                                      duration:
-                                          const Duration(seconds: 1),
-                                      behavior:
-                                          SnackBarBehavior.floating,
+                                        '${product.name} ditambahkan ke cart!',
+                                      ),
+                                      duration: const Duration(seconds: 1),
+                                      behavior: SnackBarBehavior.floating,
                                     ),
                                   );
                                 },
@@ -257,7 +270,8 @@ class _ProductListPageState extends State<ProductListPage> {
                                 ),
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: 8),
+                                    vertical: 8,
+                                  ),
                                 ),
                               ),
                             ),
