@@ -1,3 +1,5 @@
-# manajemenpab
+# SHOPING CART 
+Isrina Luthfiah | 2409116003 | 
 
-A new Flutter project.
+Sistem Informasi A'24
+
