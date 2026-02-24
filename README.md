@@ -7,17 +7,12 @@ Sistem Informasi A'24
 # PART 5: Shopping Cart Hands-On 🛒
 Pada bagian ini, kita mengimplementasikan fitur Shopping Cart secara langsung dalam aplikasi Flutter. Fitur ini memungkinkan pengguna untuk:
 
-Menambahkan produk ke keranjang
-
-Melihat daftar produk yang dipilih
-
-Mengubah jumlah (quantity) barang
-
-Menghapus item dari keranjang
-
-Melihat total harga secara otomatis
-
-Melanjutkan ke halaman checkout
+ㆍMenambahkan produk ke keranjang
+ㆍMelihat daftar produk yang dipilih
+ㆍMengubah jumlah (quantity) barang
+ㆍMenghapus item dari keranjang
+ㆍMelihat total harga secara otomatis
+ㆍMelanjutkan ke halaman checkout
 
 Shopping Cart dikelola menggunakan state management (Provider) agar data keranjang dapat diperbarui secara real-time ketika pengguna menambah atau mengurangi barang.
 
